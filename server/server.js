@@ -7,6 +7,14 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 
+const authRoutes = require('./routes/authRoutes');
+const auth = require('./middleware/auth');
+
+app.use('/api/auth', authRoutes);
+
+// Protect post routes
+app.use('/api/posts', auth, postRoutes);
+
 // Import routes
 const postRoutes = require('./routes/posts');
 const categoryRoutes = require('./routes/categories');

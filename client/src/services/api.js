@@ -2,6 +2,21 @@
 
 import axios from 'axios';
 
+
+
+
+// Add to api.js
+export const setAuthToken = (token) => {
+  if (token) {
+    API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  } else {
+    delete API.defaults.headers.common['Authorization'];
+  }
+};
+
+export const login = (credentials) => API.post('/auth/login', credentials);
+export const register = (userData) => API.post('/auth/register', userData);
+
 // Create axios instance with base URL
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
@@ -130,6 +145,7 @@ export const authService = {
   getCurrentUser: () => {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
+
   },
 };
 
